@@ -31,6 +31,7 @@ func (r *room) run() {
             r.clients[client] = true
         case client := <-r.leave:
             delete(r.clients, client)
+            log.Print("Client left")
             close(client.send)
         case msg := <-r.forward:
             for client := range r.clients {
